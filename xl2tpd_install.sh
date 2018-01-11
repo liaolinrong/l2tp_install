@@ -46,6 +46,7 @@ conn L2TP-PSK-noNAT
       dpdaction=clear
 EOF
 
+#put your own Encryption key
 cat >> /etc/ipsec.d/user.secrets <<-EOF
 $1 %any: PSK "liaolinrong"
 EOF
@@ -106,7 +107,7 @@ proxyarp
 connect-delay 5000
 EOF
 
-
+#put your own user and key
 echo "liao  *       linrong       *" >> /etc/ppp/chap-secrets
 
 
