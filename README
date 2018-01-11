@@ -1,5 +1,7 @@
 l2tp server install script on centos6.x
 
+you can change "liao"/"linrong"/"liaolinrong" in the script to your own "user"/"password"/"Encryption key"
+
 usage:
 
 sh xl2tpd_install.sh IP
