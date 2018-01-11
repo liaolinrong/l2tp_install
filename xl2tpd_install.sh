@@ -9,6 +9,7 @@ yum install openswan -y
 rpm -Uvh http://mirrors.ustc.edu.cn/fedora/epel/6/x86_64/epel-release-6-8.noarch.rpm
 yum install xl2tpd -y
 
+mv /etc/ipsec.conf /etc/ipsec.conf.bak
 cat >> /etc/ipsec.conf <<-EOF
 config setup
         protostack=netkey
@@ -18,7 +19,7 @@ config setup
 include /etc/ipsec.d/*.conf
 EOF
 
-
+mv /etc/ipsec.d/vpn.conf /etc/ipsec.d/vpn.conf.bak
 cat >> /etc/ipsec.d/vpn.conf <<-EOF
 conn   %default
        Forceencaps=yes
@@ -47,10 +48,12 @@ conn L2TP-PSK-noNAT
 EOF
 
 #put your own Encryption key
+mv /etc/ipsec.d/user.secrets /etc/ipsec.d/user.secrets.bak
 cat >> /etc/ipsec.d/user.secrets <<-EOF
 $1 %any: PSK "liaolinrong"
 EOF
 
+mv /etc/sysctl.conf /etc/sysctl.conf.bak
 cat >> /etc/sysctl.conf <<-EOF
 net.ipv4.ip_forward = 1
 net.ipv4.conf.all.accept_redirects = 0
@@ -74,6 +77,7 @@ ipsec verify
 
 
 #配置xl2tp
+mv /etc/xl2tpd/xl2tpd.conf /etc/xl2tpd/xl2tpd.conf.bak
 cat >> /etc/xl2tpd/xl2tpd.conf <<-EOF
 [global]
 
@@ -89,6 +93,7 @@ pppoptfile = /etc/ppp/options.xl2tpd
 length bit = yes
 EOF
 
+mv /etc/ppp/options.xl2tpd /etc/ppp/options.xl2tpd.bak
 cat >> /etc/ppp/options.xl2tpd <<-EOF
 ipcp-accept-local
 ipcp-accept-remote
